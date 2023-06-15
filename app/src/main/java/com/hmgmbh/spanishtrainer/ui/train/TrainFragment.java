@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hmgmbh.spanishtrainer.R;
+import com.hmgmbh.spanishtrainer.SpeechService;
 
 public class TrainFragment extends Fragment {
 
@@ -30,7 +31,6 @@ public class TrainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.train_fragment, container, false);
 
-
         return view;
     }
 
@@ -44,7 +44,11 @@ public class TrainFragment extends Fragment {
             TextView germanText = (TextView) getView().findViewById(R.id.germanText);
             germanText.setText(text);
         });
-
+        SpeechService.getGermanText().observe(getViewLifecycleOwner(), text -> {
+            // update UI
+            TextView germanText = (TextView) getView().findViewById(R.id.germanText);
+            germanText.setText(text);
+        });
         mViewModel.readData(getContext());
     }
 

@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
+import java.util.Random;
 
 public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranceCompletedListener {
     private ArrayList<TrainData> trainDataList = new ArrayList<TrainData>();
@@ -34,7 +35,8 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
     private TextToSpeech mTTS;
     private Locale locSpanish = new Locale("spa", "SPA");
     private Locale locGerman = new Locale("ger", "GER");
-    private Queue<String> textQueue = new LinkedList<>();
+    private Queue<String> speachQueue = new LinkedList<>();
+    private Random rand = new Random();
 
     public void readData(final Context context) {
         mContext = context;
@@ -57,14 +59,6 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
                     d.germanText = texts[0];
                     String gerName = "raw/a_" + lCount + "_d";
                     String espName = "raw/a_" + lCount + "_e";
-                    d.germanAudio = mContext.getResources().getIdentifier(gerName, null, mContext.getPackageName());
-                    if (d.germanAudio == 0) {
-                        d.germanAudio = mContext.getResources().getIdentifier("no_audio", null, mContext.getPackageName());
-                    }
-                    d.spanishAudio = mContext.getResources().getIdentifier(espName, null, mContext.getPackageName());
-                    if (d.spanishAudio == 0) {
-                        d.spanishAudio = mContext.getResources().getIdentifier("no_audio", null, mContext.getPackageName());
-                    }
                     trainDataList.add(d);
                 }
                 line = reader.readLine();
@@ -94,7 +88,7 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                startTrainCycle();
+                                //startTrainCycle();
                             }
                         }, 1000);
                     }
@@ -113,25 +107,22 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
     private void startTrainCycle() {
         mGermanText.postValue(trainDataList.get(mCurrentData).germanText);
 
-        textQueue.add("G:"+trainDataList.get(mCurrentData).germanText);
-        textQueue.add("S:"+trainDataList.get(mCurrentData).spanischText);
-        textQueue.add("S:"+trainDataList.get(mCurrentData).spanischText);
+        speachQueue.add("G:"+trainDataList.get(mCurrentData).germanText);
+        speachQueue.add("S:"+trainDataList.get(mCurrentData).spanischText);
+        speachQueue.add("S:"+trainDataList.get(mCurrentData).spanischText);
         speak();
 
-        mCurrentData++;
-        if (mCurrentData == trainDataList.size()) {
-            mCurrentData = 0;
-        }
+        mCurrentData = rand.nextInt(trainDataList.size());;
     }
 
     private void speak() {
 
-        if (textQueue.isEmpty()) {
+        if (speachQueue.isEmpty()) {
             startTrainCycle();
             return;
         }
         if (!mTTS.isSpeaking()) {
-            String[] s = textQueue.remove().split(":");
+            String[] s = speachQueue.remove().split(":");
             String text = s[1];
             String lang = s[0];
 
@@ -140,6 +131,7 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
                 result = mTTS.setLanguage(Locale.GERMAN);
             } else {
                 result = mTTS.setLanguage(locSpanish);
+                mTTS.setSpeechRate(0.75f);
             }
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -153,7 +145,7 @@ public class TrainViewModel extends ViewModel implements TextToSpeech.OnUtteranc
     }
 
     public void stop() {
-        textQueue.clear();
+        speachQueue.clear();
         mTTS.shutdown();
     }
 

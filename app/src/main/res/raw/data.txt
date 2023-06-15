@@ -238,3 +238,70 @@ Natürlich nicht.								:	Claro que no.
 Er spielt Fussball.								:	El juega futbol.
 Ich habe sogar ein Auto.						:	Incluso tengo un coche.
 Ich bin kein Kind mehr.							:	Ya no soy un nino.
+auch 			:	tambien (ademas?)
+nur				:	solamente
+aber			:	pero
+und				:	y
+jetzt			:	ahora
+für				:	para
+ungefähr		:	unos
+leider 			:	Desgraciadamente
+grossartig		:	genial
+spät			:	tarde
+bevor. vorher	:	antes
+hier			:	aqui
+dort			:	alli
+mit				:	con
+jene			:	ese
+etwas			:	algo
+sonst			:	de lo contrario
+trotz,obwohl	:	pese a
+während			:	durante, mientras
+niemals, nie	:	nunca
+gegen			:	frente a
+niemand			:	nadie
+fast			:	casi
+seit			:	desde
+so sehr			:	tanto
+oft				:	frecuentemente, a menudo
+also			:	pues
+dann, also		:	entonces
+danach			:	después,luego
+darum			:	por eso
+komplett		:	completamente
+keiner			:	ningun
+in jedem Alter	:	a cualquier edad
+hinter			:tras
+zwischen		:entre
+aufwärts		:arriba
+abwärts			:abajo
+oben			:arriba
+unten			:abajo
+noch 			:todavia
+immer			:siempre
+(Al)so 			:tan
+zu				:demasiado
+plötzlich		:de pronto
+jemals			:jamas
+jede/n			:cada
+diese/r			:este
+jemand			:alguien
+wieder 			:otra vez
+sofort, jetzt	:ya
+nach(dem)		:tras, despues
+obwohl			:aunque
+vielleicht		:quiza(s), tal vez
+nach, laut		:segundo, segun
+kaum			:apenas
+ausserdem       :ademas
+zudem			:ademas
+so				:asi
+auf,über		:sobre
+manchmal		:a veces
+schon			:ya
+gleich			:igual
+übrigens		:por cierto
+tatsächlich		:de hecho
+jederzeit		:a cualquier hota
+bisschen		:hasta
+sogar			:incluso

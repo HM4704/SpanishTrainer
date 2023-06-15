@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SpanishTrainer</string>
+    <string name="wait_time">WaitTime</string>
+    <string name="num_repeats">NumRepeats</string>
+    <string name="prefs_name">com.hmgmbh.spanishtrainer.prefs</string>
 </resources>
