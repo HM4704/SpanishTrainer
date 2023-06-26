@@ -138,7 +138,7 @@ Diese Schuhe sind aus Leder.					:	Estos zapatos son de cuero.
 Warum ist du kein Gemüse?						:	Por que no comes verduras?
 Willst di Kaffe oder Tee?						:	Quieres cafe o te?
 Ich habe mein Gepäck am Flughafen verloren.		:	He perdido mi equipaje en el areopuerte.
-Wir müssen um 11 Uhr am Flughsfen sein.			:	Tenemos que estar en el aeropuerto a las 11.
+Wir müssen um 11 Uhr am Flughafen sein.			:	Tenemos que estar en el aeropuerto a las 11.
 Wir haben uns einen neuen Schrank gekauft.		:	Nos compranos un nuevo armario.
 Diese Bettdecke ist zu klein für uns beide.		:	Este cobertor es demasiado pequeno para mas de dos.
 Ich kann den Lichtschalter nicht finden.		:	No encuentro el interruptor de la luz.
