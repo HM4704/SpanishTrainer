@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.PowerManager;
 import android.provider.SyncStateContract;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
     private ArrayList<TextItem> mPlaylist;
     private TextItem mCurrent;
 
+    private PowerManager.WakeLock wakeLock = null;
     private TextToSpeech mTTS;
     private Locale locSpanish = new Locale("spa", "SPA");
     private Locale locGerman = new Locale("ger", "GER");
@@ -131,7 +133,7 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
 
     private void startTrainCycle() {
 
-        mGermanText.postValue(mPlaylist.get(mCurrentData).mGerText);
+        mGermanText.postValue(mPlaylist.get(mCurrentData).mGerText.split(":")[1]);
 
         speachQueue.add(mPlaylist.get(mCurrentData).mGerText);
         for (int i = 0; i < mNumRepeats; i++) {
@@ -191,6 +193,9 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
     {
         Log.d(TAG, "Destroying the foreground service");
         super.onDestroy();
+        if (wakeLock != null) {
+            wakeLock.release();
+        }
         onCommandQuit();
     }
 
@@ -230,6 +235,8 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
 
         startForeground(1,notification);
 
+        wakeLock = acquire(this, PowerManager.PARTIAL_WAKE_LOCK, 10000, "SpeechService::lock");
+
         mIsReady = true;
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -262,6 +269,21 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
         mTTS.shutdown();
         stopForeground(true);
         stopSelf();
+    }
+
+    private PowerManager.WakeLock acquire(Context context, int lockType, long timeout, String tag) {
+        try {
+            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(lockType, tag);
+
+            wakeLock.acquire(timeout);
+            Log.d(TAG, "Acquired wakelock with tag: " + tag);
+
+            return wakeLock;
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to acquire wakelock with tag: " + tag, e);
+            return null;
+        }
     }
 
     public static class TextItem
