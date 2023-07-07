@@ -49,6 +49,11 @@ public class TrainFragment extends Fragment {
             TextView germanText = (TextView) getView().findViewById(R.id.germanText);
             germanText.setText(text);
         });
+        SpeechService.getSpanishText().observe(getViewLifecycleOwner(), text -> {
+            // update UI
+            TextView tv = (TextView) getView().findViewById(R.id.spanishInput);
+            tv.setText(text);
+        });
         mViewModel.readData(getContext());
     }
 

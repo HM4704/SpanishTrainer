@@ -49,7 +49,9 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
     private boolean mIsReady     = false;
 
     private ArrayList<TextItem> mPlaylist;
+    private ArrayList<TextItem> mRepeatlist = new ArrayList<TextItem>();
     private TextItem mCurrent;
+    private Boolean mRepeatCycle = false;
 
     private PowerManager.WakeLock wakeLock = null;
     private TextToSpeech mTTS;
@@ -59,9 +61,11 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
     private Random rand = new Random();
 
     private static final MutableLiveData<String> mGermanText  = new MutableLiveData<String>("");
+    private static final MutableLiveData<String> mSpanishText  = new MutableLiveData<String>("");
     private Integer mCurrentData = 0;
     private int mWaitTime;
     private int mNumRepeats;
+    private int mRepeatAfter;
 
 
     public SpeechService() {
@@ -69,6 +73,9 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
 
     public static LiveData<String> getGermanText() {
         return mGermanText;
+    }
+    public static LiveData<String> getSpanishText() {
+        return mSpanishText;
     }
 
     public static Intent createSinglePlayIntent(Context context, TextItem item)
@@ -129,23 +136,39 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
                 Context.MODE_PRIVATE);
         mWaitTime = sharedPref.getInt(getResources().getString(R.string.wait_time), 2000);
         mNumRepeats = sharedPref.getInt(getResources().getString(R.string.num_repeats), 2);
+        mRepeatAfter = sharedPref.getInt(getResources().getString(R.string.repeat_after), 10);
     }
 
     private void startTrainCycle() {
 
-        mGermanText.postValue(mPlaylist.get(mCurrentData).mGerText.split(":")[1]);
+        TextItem ti = mPlaylist.get(mCurrentData);
 
-        speachQueue.add(mPlaylist.get(mCurrentData).mGerText);
+        if (mRepeatAfter > 0 && mRepeatlist.size() == mRepeatAfter) {
+            mRepeatCycle = true;
+        }
+        if (mRepeatCycle == true) {
+            if (mRepeatlist.size() > 0) {
+                ti = mRepeatlist.remove(0);
+            }
+            if (mRepeatlist.isEmpty()) {
+                mRepeatCycle = false;
+            }
+        } else {
+            mRepeatlist.add(mPlaylist.get(mCurrentData));
+            mCurrentData++;
+            if (mCurrentData == mPlaylist.size()) {
+                mCurrentData = 0;
+            }
+        }
+
+        mGermanText.postValue(ti.mGerText.split(":")[1]);
+        mSpanishText.postValue(ti.mSpaText.split(":")[1]);
+
+        speachQueue.add(ti.mGerText);
         for (int i = 0; i < mNumRepeats; i++) {
-            speachQueue.add(mPlaylist.get(mCurrentData).mSpaText);
+            speachQueue.add(ti.mSpaText);
         }
 
-        mCurrentData++;
-        if (mCurrentData == mPlaylist.size()) {
-            mCurrentData = 0;
-        }
-
-        //mCurrentData = rand.nextInt(1);
         speak();
     }
 
@@ -165,7 +188,7 @@ public class SpeechService extends Service implements TextToSpeech.OnUtteranceCo
                 result = mTTS.setLanguage(Locale.GERMAN);
             } else {
                 result = mTTS.setLanguage(locSpanish);
-                mTTS.setSpeechRate(0.75f);
+                mTTS.setSpeechRate(0.8f);
             }
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {

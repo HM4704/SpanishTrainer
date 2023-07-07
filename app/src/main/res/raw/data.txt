@@ -107,8 +107,8 @@ Die Spülmaschine ist jetz voll.					:	El lavavajillas ahora esta lleno.
 Ich lebe in den Bergen.							:	Vivo en las montanas.
 Er reist immer mit dem Zug.						:	El siempre viaja en train.
 Dieses Geheinmis muss unter uns bleiben.		:	Este secreto debe quedar entre nosotros.
-Diese Geschenk ist für dich.					:	Este regalo es para ti.
-Vielen Dank für deine Unterstützung.			:	Gracia por tu apoyo.
+Dieses Geschenk ist für dich.					:	Este regalo es para ti.
+Vielen Dank für deine Unterstützung.			:	Gracias por tu apoyo.
 Kannst Du das lesen?							:	Puedes leer esto?
 Gehen wir essen.								:	Vamos a comer.
 Können wir bezahlen?							:	Podemos pagar?
@@ -137,7 +137,7 @@ Dieser Rock ist zu kurz.						:	Esta falda es demasiado corta.
 Diese Schuhe sind aus Leder.					:	Estos zapatos son de cuero.
 Warum ist du kein Gemüse?						:	Por que no comes verduras?
 Willst di Kaffe oder Tee?						:	Quieres cafe o te?
-Ich habe mein Gepäck am Flughafen verloren.		:	He perdido mi equipaje en el areopuerte.
+Ich habe mein Gepäck am Flughafen verloren.		:	He perdido mi equipaje en el areopuerto.
 Wir müssen um 11 Uhr am Flughafen sein.			:	Tenemos que estar en el aeropuerto a las 11.
 Wir haben uns einen neuen Schrank gekauft.		:	Nos compranos un nuevo armario.
 Diese Bettdecke ist zu klein für uns beide.		:	Este cobertor es demasiado pequeno para mas de dos.

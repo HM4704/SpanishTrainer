@@ -22,7 +22,6 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
-            android:text="german"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +42,6 @@
                 android:id="@+id/spanishInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="hint"
                 android:textColorHint="#616161" />
         </com.google.android.material.textfield.TextInputLayout>
 
